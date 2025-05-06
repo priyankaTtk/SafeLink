@@ -1,0 +1,40 @@
+services:
+  central_hub:
+    build: ./central_hub
+    ports:
+      - "5000:5000"
+    depends_on:
+      - police
+      - ngo
+      - legal
+      - transport
+
+  police:
+    build: ./distributed_services/police
+    ports:
+      - "5001:5000"
+
+  ngo:
+    build: ./distributed_services/ngo
+    ports:
+      - "5002:5000"
+
+  legal:
+    build: ./distributed_services/legal
+    ports:
+      - "5003:5000"
+
+  transport:
+    build: ./distributed_services/transport
+    ports:
+      - "5004:5000"
+
+  analytics:
+    build: ./analytics
+    ports:
+      - "5005:5000"
+
+  alert_simulator:
+    build: ./alert_simulator
+    depends_on:
+      - central_hub
